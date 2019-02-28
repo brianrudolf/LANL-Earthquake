@@ -1,18 +1,34 @@
 """ 
-
 utility script with functions for generating features
-
-
 """
 
 import numpy as np
 import os, time, pickle
 from tqdm import tqdm
 
+from pyculib.fft import fft
 from numba import jit, njit, prange
-
+import numba
 
 eps = 1E-100
+
+
+def fft_features(data_arr):
+	out_data = np.zeros((data_arr.shape[0], 500))
+
+	for i in range(out_data.shape[0]):
+		out_data[i] = fft_data(data_arr[i])
+
+	return out_data
+
+def fft_data(data):
+	fft_tmp = np.empty((data.shape), dtype=np.complex64)
+	yf = numba.cuda.to_device(fft_tmp)
+	fft(data.astype(np.complex64), yf)
+	tmp = np.copy(np.abs(yf[1:len(yf)//6 + 1]))
+	avg_fft = np.mean(tmp.reshape(-1, len(tmp)//500), axis=1)
+	return avg_fft
+
 
 @njit(parallel = True)
 def stats(array):
