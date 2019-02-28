@@ -29,3 +29,9 @@ The 'train_model.py' script efficiently imports the training and validation data
 
 ## Prediction on test data samples
 To complete the exercise for this competition, time to failure values are predicted for each of the test data samples provided. The script 'predict_on_test.py' loads in the saved model and data scaler (the best model can be selected from the 'train_model' script based on the model's performance on the validation set), generates features for the test data, scales said features in the same manner as the training data, and makes a prediction for the time remaining. A csv file is then created for submission to Kaggle. 
+
+## Model Performance
+Initial model scores a 'mean absolute error' of 1.542 on the test data from Kaggle.
+
+The model with FFT features added scores 1.609. This is using a XGBRegressor model that has been roughly tuned.
+
