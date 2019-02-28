@@ -41,7 +41,11 @@ for i in range(16):
 	### Read data and create features for input samples (train and val)
 	print("Processing quake ", i)
 	x_tmp = np.load(f'train/data_samples/interval_{i}_X.npy')
-	X.append(feature_extraction_172(x_tmp))
+	stats = feature_extraction_172(x_tmp)
+	ffts  = fft_features(x_tmp)
+	X.append(np.concatenate((stats, ffts), axis=1))	
+# 	X.append(feature_extraction_172(x_tmp))
+
 	y_tmp = np.load(f'train/data_samples/interval_{i}_y.npy')
 	y.append(np.reshape(y_tmp, (y_tmp.shape[0], 1)))
 end = time.time()
