@@ -14,7 +14,7 @@ from tqdm import tqdm
 from joblib import dump, load, Parallel, delayed
 import multiprocessing
 
-from quake_features import feature_extraction_172
+from quake_features import feature_extraction_172, fft_features
 
 np.set_printoptions(threshold=50)
 
@@ -43,7 +43,11 @@ test_data = Parallel(n_jobs=4)(delayed(process_Test)(i) for i in tqdm(range(len(
 test_data = np.vstack(test_data)
 print("Test data shape: ", test_data.shape)
 
-X_test = feature_extraction_172(test_data)
+stats  = feature_extraction_172(test_data)
+ffts   = fft_features(test_data)
+X_test = np.concatenate((stats, ffts), axis=1)
+# X_test = feature_extraction_172(test_data)
+
 X_test = np.nan_to_num(X_test)
 X_test = scaler.transform(X_test)
 print("Test features shape: ", X_test.shape)
