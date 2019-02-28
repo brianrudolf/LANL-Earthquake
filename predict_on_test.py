@@ -25,11 +25,11 @@ def process_Test(file):
 
 ### Load model
 model_name = 'model_SVR_172_stats_folded_rbf_0.002_50_2.259.joblib'
-model = load(f'train/numpy_data/5mil/models/{model_name}')
+model = load(f'models/{model_name}')
 
 ### Load scaler
 scaler_name = 'scaler_SVR_172_stats_folded_rbf_0.002_50_2.259.joblib'
-scaler = load(f'train/numpy_data/5mil/models/{scaler_name}')
+scaler = load(f'models/{scaler_name}')
 
 ### Create features for test data
 test_seqs 	= os.listdir('test')
