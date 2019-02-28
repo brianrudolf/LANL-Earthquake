@@ -16,7 +16,7 @@ from tqdm import tqdm
 
 from sklearn import utils
 
-from quake_features import feature_extraction_87, feature_extraction_172
+from quake_features import feature_extraction_87, feature_extraction_172, fft_features
 
 np.set_printoptions(threshold=10_000)
 np.random.seed(seed=5)
